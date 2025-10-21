@@ -136,7 +136,60 @@ function PersonBlock(solo) {
 
 const $container = document.getElementById("freelancers-container");
 
-people.forEach((freelancer) => {
-  const $personBlock = PersonBlock(freelancer);
-  $container.appendChild($personBlock);
+$container.innerHTML = "";
+
+const $headerRow = document.createElement("div");
+$headerRow.classList.add("header-row");
+
+const headers = ["Name", "Occupation", "Starting Rate"];
+
+headers.forEach((headerText) => {
+  const $header = document.createElement("h3");
+  $header.classList.add("grid-header");
+  $header.textContent = headerText;
+  $headerRow.appendChild($header);
 });
+
+$container.appendChild($headerRow);
+
+people.forEach((freelancer) => {
+  const $row = document.createElement("div");
+  $row.classList.add("solo");
+
+  const $name = document.createElement("p");
+  $name.classList.add("name");
+  $name.textContent = freelancer.name;
+  $row.appendChild($name);
+
+  const $occupation = document.createElement("p");
+  $occupation.classList.add("occupation");
+  $occupation.textContent = freelancer.occupation;
+  $row.appendChild($occupation);
+
+  const $rate = document.createElement("p");
+  $rate.classList.add("rate");
+  $rate.textContent = `$${freelancer.rate}/hr`;
+  $row.appendChild($rate);
+
+  $container.appendChild($row);
+});
+
+function displayAverageRate() {
+  const totalRate = people.reduce(
+    (sum, freelancer) => sum + freelancer.rate,
+    0
+  );
+  const avgRate = totalRate / people.length;
+
+  const $average = document.createElement("p");
+  $average.classList.add("average-rate");
+  $average.textContent = `Average hourly rate: $${avgRate.toFixed(2)}`;
+
+  const $avgContainer = document.createElement("div");
+  $avgContainer.classList.add("average-rate-container");
+  $avgContainer.appendChild($average);
+
+  const $container = document.getElementById("freelancers-container");
+  $container.insertAdjacentElement("beforebegin", $avgContainer);
+}
+displayAverageRate();
