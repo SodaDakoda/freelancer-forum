@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
 /**
  * @typedef Freelancer
  * @property {string} name
@@ -7,7 +7,6 @@ import { faker } from "@faker-js/faker";
  */
 
 // === Constants ===
-const NAMES = faker.person.fullName();
 
 // used AI to generate a longer list of Occupations
 
@@ -104,7 +103,7 @@ const PRICE_RANGE = { min: 20, max: 200 };
 const NUM_FREELANCERS = 100;
 
 function makePerson() {
-  const name = NAMES[Math.floor(Math.random() * NAMES.length)];
+  const name = faker.person.fullName();
   const occupation =
     OCCUPATIONS[Math.floor(Math.random() * OCCUPATIONS.length)];
   const rate =
@@ -134,3 +133,10 @@ function PersonBlock(solo) {
   $person.append($individual, $occupy, $hourly);
   return $person;
 }
+
+const $container = document.getElementById("freelancers-container");
+
+people.forEach((freelancer) => {
+  const $personBlock = PersonBlock(freelancer);
+  $container.appendChild($personBlock);
+});
