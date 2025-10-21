@@ -112,3 +112,25 @@ function makePerson() {
     PRICE_RANGE.min;
   return { name, occupation, rate };
 }
+
+const people = Array.from({ length: NUM_FREELANCERS }, makePerson);
+
+function PersonBlock(solo) {
+  const $person = document.createElement("div");
+  $person.classList.add("solo");
+
+  const $individual = document.createElement("p");
+  $individual.classList.add("name");
+  $individual.textContent = solo.name;
+
+  const $occupy = document.createElement("p");
+  $occupy.classList.add("occupation");
+  $occupy.textContent = solo.occupation;
+
+  const $hourly = document.createElement("p");
+  $hourly.classList.add("rate");
+  $hourly.textContent = `$${solo.rate}/hr`;
+
+  $person.append($individual, $occupy, $hourly);
+  return $person;
+}
